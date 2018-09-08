@@ -1,0 +1,76 @@
+ext.mainApp = true  //设置为true，表示此module为主app module，一直以application方式编译
+apply from: rootProject.file('cc-settings.gradle')
+
+android {
+    compileSdkVersion rootProject.compileVersion
+    defaultConfig {
+        applicationId "com.hospital.s1m"
+        minSdkVersion rootProject.minVersion
+        targetSdkVersion rootProject.targetVersion
+        versionCode 1
+        versionName "0.0.1"
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+
+    signingConfigs {
+
+        def Properties localProps = new Properties()
+        localProps.load(new FileInputStream(file('../gradle.properties')))
+        def Properties keyProps = new Properties()
+
+        // 如果读取不到'keystore.props.file'属性，就使用debug keystore
+
+        if (localProps['keystore.props.file']) {
+            keyProps.load(new FileInputStream(file(localProps['keystore.props.file'])))
+        } else {
+            keyProps["store"] = '../key/debug.keystore'
+            keyProps["alias"] = 'androiddebugkey'
+            keyProps["storePass"] = 'android'
+            keyProps["pass"] = 'android'
+        }
+        config {
+            // release版本使用assert确保存在该属性否则报错，避免错误打包
+            keyAlias keyProps["alias"]
+            keyPassword keyProps["pass"]
+            storePassword keyProps["storePass"]
+            storeFile file(keyProps["store"])
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled true
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+//            applicationVariants.all { variant ->
+//                variant.outputs.all { output ->
+//                    outputFileName = "dispatch_${defaultConfig.versionName}_${releaseTime()}.apk"
+//                }
+//            }
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    buildToolsVersion '27.0.3'
+}
+
+
+static def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+    implementation project(':lib_base')
+    addComponent 'lib_patient'
+    addComponent 'lib_user' , project(':lib_user')
+    addComponent 'lib_queue'
+}

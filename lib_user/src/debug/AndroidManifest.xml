@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hospital.s1m.lib_user" >
+
+    <application
+        android:name=".ApplicationDebug"
+        android:icon="@mipmap/demo_a_ic_launcher"
+        android:label="@string/user_app_name"
+        android:theme="@style/user_AppTheme">
+        <activity android:name="com.hospital.s1m.lib_user.login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

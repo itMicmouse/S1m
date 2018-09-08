@@ -1,0 +1,43 @@
+apply from: rootProject.file('cc-settings.gradle')
+
+android {
+    compileSdkVersion rootProject.compileVersion
+    defaultConfig {
+        minSdkVersion rootProject.minVersion
+        targetSdkVersion rootProject.targetVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    resourcePrefix "basic_"
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildToolsVersion rootProject.buildVersion
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api 'com.android.support:appcompat-v7:27.1.1'
+    // JSON
+    api 'com.alibaba:fastjson:1.2.33'
+    // 网络
+    //noinspection GradleDependency
+    api 'com.lzy.net:okgo:3.0.1'
+    api 'com.lzy.net:okrx2:2.0.1'
+    api 'com.lzy.net:okserver:2.0.1'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    api 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+    api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+}
