@@ -1,3 +1,5 @@
 <resources>
     <string name="user_app_name">user</string>
+    <string name="user_open">open</string>
+    <string name="user_close">close</string>
 </resources>

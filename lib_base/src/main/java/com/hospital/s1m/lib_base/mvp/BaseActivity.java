@@ -1,13 +1,19 @@
 package com.hospital.s1m.lib_base.mvp;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.hospital.s1m.lib_base.R;
 import com.hospital.s1m.lib_base.data.NetDataSource;
 import com.hospital.s1m.lib_base.mvp.base.BasePresenter;
 import com.hospital.s1m.lib_base.mvp.base.BaseView;
 import com.hospital.s1m.lib_base.mvp.impl.MvpCallback;
 import com.hospital.s1m.lib_base.mvp.impl.MvpImpl;
+import com.hospital.s1m.lib_base.utils.StatusBarUtils;
 import com.hospital.s1m.lib_base.utils.SystemUIUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -23,9 +29,6 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
         if (setContentView() != 0) {
             setContentView(setContentView());
         }

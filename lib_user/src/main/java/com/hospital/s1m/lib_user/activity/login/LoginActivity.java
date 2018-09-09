@@ -1,4 +1,4 @@
-package com.hospital.s1m.lib_user.login;
+package com.hospital.s1m.lib_user.activity.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
